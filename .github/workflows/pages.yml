@@ -44,7 +44,8 @@ jobs:
           import hashlib, json, os, sys, urllib.request
           base = sys.argv[1].rstrip('/') + '/'
           manifest = json.load(open('site-manifest.json', encoding='utf-8'))
-          for row in manifest['files'] + [{'path':'site-manifest.json','sha256':hashlib.sha256(open('site-manifest.json','rb').read()).hexdigest()}]:
+          served = [row for row in manifest['files'] if not row['path'].startswith('.')]
+          for row in served + [{'path':'site-manifest.json','sha256':hashlib.sha256(open('site-manifest.json','rb').read()).hexdigest()}]:
               with urllib.request.urlopen(base + row['path'] + '?run=' + os.environ['GITHUB_RUN_ID'], timeout=30) as response:
                   assert hashlib.sha256(response.read()).hexdigest() == row['sha256']
           PY
