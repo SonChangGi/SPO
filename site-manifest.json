@@ -1,0 +1,85 @@
+{
+  "data_as_of": "2026-08-14",
+  "files": [
+    {
+      "path": ".nojekyll",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "404.html",
+      "sha256": "b4e4855687152b69af0c899b283f9ed3ac7d7b78efc794c326106b7cda385aa1",
+      "size": 10926
+    },
+    {
+      "path": "assets/app.js",
+      "sha256": "b7971a592f5d0822e2f4bfb62e67eb94b628dbb5225cbab0a2dd3877448d3f54",
+      "size": 1013
+    },
+    {
+      "path": "assets/styles.css",
+      "sha256": "76cb0a49412fae1d8f6e1f1d74b14cf3551cbe369d2252b8fb41d8a41278de33",
+      "size": 10155
+    },
+    {
+      "path": "index.html",
+      "sha256": "b4e4855687152b69af0c899b283f9ed3ac7d7b78efc794c326106b7cda385aa1",
+      "size": 10926
+    },
+    {
+      "path": "report/content.html",
+      "sha256": "693447400f8626edf7cd9525a3b244095e04f1cedb2737507bf627de0ab1914e",
+      "size": 532093
+    },
+    {
+      "path": "report/index.html",
+      "sha256": "d9c6d812bdf119297ad2bfcf74c86519c1aaab814074a02c0519ff040c87f663",
+      "size": 1576
+    },
+    {
+      "path": "research/content.html",
+      "sha256": "2225233d44de8e20bc1eaa8297d4a68228ddf8ebce0fe436b7210f934b7eb054",
+      "size": 551960
+    },
+    {
+      "path": "research/index.html",
+      "sha256": "221fca84095ee1c371a11f2115b27f66bacb6fb83aadcb358ad04aed7fea8d11",
+      "size": 1591
+    },
+    {
+      "path": "sensitivity/cash/content.html",
+      "sha256": "db4cc94103f52c9fc3dfe936d46c8cba9de9da173ac505d673cae04a3a715432",
+      "size": 547451
+    },
+    {
+      "path": "sensitivity/cash/index.html",
+      "sha256": "6294ae8cef3713f7b0164e7d3876276a6aeffde676c691a8bcaee87bbe647dbd",
+      "size": 1585
+    },
+    {
+      "path": "sensitivity/fred/content.html",
+      "sha256": "e02aca3541500e5c4717c4706e474facf54515a6571ab39975366abef038dd88",
+      "size": 553905
+    },
+    {
+      "path": "sensitivity/fred/index.html",
+      "sha256": "0d2fb093d2f0e0344fb681813a724efc738db800c6145aa1ecfc4724027369dd",
+      "size": 1592
+    },
+    {
+      "path": "sensitivity/universe/content.html",
+      "sha256": "83d1a8887f4d98620deac3842b8a52f21bcc05ef981591237c9052d8d4d6b68e",
+      "size": 554229
+    },
+    {
+      "path": "sensitivity/universe/index.html",
+      "sha256": "ccab82e8a68146113f7249718d7b6f1dbce4e825d1ed4895a5b4aeae1c2f2333",
+      "size": 1619
+    }
+  ],
+  "public_url": "https://sonchanggi.github.io/SPO/",
+  "release_content_sha256": "49d854e68b7b615a69e22b0739d9f28653c2ba1d93632bab9165037da57c6dd8",
+  "release_id": "79c2984d5cca5863b57ce0f8d24739f1",
+  "schema_version": 1,
+  "site_kind": "spo_korea_reviewed_derived_only_pages"
+}

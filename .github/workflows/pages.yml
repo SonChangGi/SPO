@@ -1,0 +1,54 @@
+name: Deploy SPO Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: spo-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out reviewed public bundle
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - name: Verify and materialize exact allowlist
+        run: python scripts/verify-site.py . --materialize dist
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+      - name: Upload exact static bundle
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: dist
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
+      - name: Verify public bytes
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          for attempt in {1..12}; do
+            if python - "$PAGE_URL" <<'PY'
+          import hashlib, json, os, sys, urllib.request
+          base = sys.argv[1].rstrip('/') + '/'
+          manifest = json.load(open('site-manifest.json', encoding='utf-8'))
+          for row in manifest['files'] + [{'path':'site-manifest.json','sha256':hashlib.sha256(open('site-manifest.json','rb').read()).hexdigest()}]:
+              with urllib.request.urlopen(base + row['path'] + '?run=' + os.environ['GITHUB_RUN_ID'], timeout=30) as response:
+                  assert hashlib.sha256(response.read()).hexdigest() == row['sha256']
+          PY
+            then exit 0; fi
+            test "$attempt" -lt 12 || exit 1
+            sleep 5
+          done

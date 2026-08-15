@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="한국 업종 ETF에서 SPO+, PTO, 일반화 DFL과 기준모형을 동일한 주간 OOS 계약으로 비교하는 의사결정 중심 리서치">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self' data:; frame-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>SPO Korea | Decision-focused ETF Research</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body id="top" class="has-quant-shared-nav">
+  <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+  <nav class="site-nav" aria-label="연결 프로젝트 바로가기">
+    <div class="site-nav-inner">
+      <a class="site-nav-brand" href="https://sonchanggi.github.io/quant-dashboard/">Quant Research Hub</a>
+      <div class="site-nav-links" aria-label="프로젝트 목록">
+        <a href="https://sonchanggi.github.io/fearNgreed/">Fear &amp; Greed</a>
+        <a href="https://sonchanggi.github.io/momentum-factor-lab/">Momentum</a>
+        <a href="https://sonchanggi.github.io/dram-price/">DRAM</a>
+        <a href="https://sonchanggi.github.io/best-factor/">Best Factor</a>
+        <a href="https://sonchanggi.github.io/etf-tracking/">ETF</a>
+        <a href="https://sonchanggi.github.io/sox/">SOX</a>
+        <a href="https://sonchanggi.github.io/regime/">Regime</a>
+        <a class="is-active" href="./" aria-current="page">SPO</a>
+      </div>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="다크 모드로 전환">
+        <span class="theme-toggle-icon" aria-hidden="true"></span>
+        <span class="sr-only" id="theme-toggle-text">다크 모드</span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="page-header" aria-labelledby="page-title">
+    <div class="page-header-copy">
+      <p class="eyebrow">KOREA SECTOR ETF · WEEKLY · RESEARCH ONLY</p>
+      <h1 id="page-title">SPO Korea</h1>
+      <p class="hero-copy">예측 오차보다 실제 의사결정 비용을 직접 줄이는 학습이 한국 업종 ETF에서도 유효한지, 동일한 OOS·거래비용 계약으로 검증합니다.</p>
+    </div>
+    <div class="header-status-strip" aria-label="현재 연구 상태">
+      <article><span>데이터 기준</span><strong>2026-08-14</strong></article>
+      <article><span>OOS 검증</span><strong>59주</strong></article>
+      <article><span>Forward 확정</span><strong>0 / 26주</strong></article>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="페이지 섹션 바로가기">
+    <a href="#verdict">결론</a><a href="#results">성과</a><a href="#evidence">검증</a><a href="#surfaces">결과물</a><a href="#limits">경계</a>
+  </nav>
+
+  <main id="main-content" tabindex="-1">
+    <section id="verdict" class="section verdict-section" aria-labelledby="verdict-title">
+      <div class="section-heading"><p class="eyebrow">Current Verdict</p><h2 id="verdict-title">SPO+의 우월성은 아직 확인되지 않았습니다</h2></div>
+      <div class="verdict-grid">
+        <article class="verdict-card verdict-primary">
+          <span class="status-pill caution">승격 보류</span>
+          <h3>SPO+ 선형</h3>
+          <strong class="hero-number">26.1%</strong>
+          <p>59주 OOS 연환산 순수익. Sharpe 0.69, 최대낙폭 -38.8%.</p>
+        </article>
+        <article class="verdict-card">
+          <span class="status-pill neutral">현재 강한 기준</span>
+          <h3>과거 평균수익 1위</h3>
+          <strong class="hero-number">75.3%</strong>
+          <p>동일 구간 연환산 순수익. Sharpe 1.29. 단순 기준모형이 현재 더 강합니다.</p>
+        </article>
+        <article class="verdict-card">
+          <span class="status-pill info">핵심 비교</span>
+          <h3>SPO+ - Ridge PTO</h3>
+          <strong class="hero-number">+10.0bp</strong>
+          <p>주간 순수익 차이, 95% CI [-187.1, 206.2]. 신뢰구간이 0을 포함합니다.</p>
+        </article>
+      </div>
+      <p class="answer-note">PDF의 높은 그래프는 투자수익률이 아니라 synthetic normalized SPO loss인 부분이 있으며, PDF 포트폴리오의 hard-risk·cash oracle도 현재 승인된 no-cash simplex 계약과 다릅니다. 그래서 원문을 그대로 복제하지 않고, 식·oracle·데이터 효과를 분리해 검증했습니다.</p>
+    </section>
+
+    <section id="results" class="section" aria-labelledby="results-title">
+      <div class="section-heading"><p class="eyebrow">Comparable OOS</p><h2 id="results-title">모든 모델을 같은 59주 위에서 비교</h2></div>
+      <div class="table-card">
+        <div class="table-scroll"><table>
+          <caption>동일 OOS 구간 모델 비교</caption>
+          <thead><tr><th scope="col">모델</th><th scope="col">연환산 순수익</th><th scope="col">Sharpe</th><th scope="col">최대낙폭</th><th scope="col">평균 regret</th></tr></thead>
+          <tbody><tr><th scope="row">과거 평균수익 1위</th><td>75.3%</td><td>1.29</td><td>-38.9%</td><td>1014.4bp</td></tr><tr><th scope="row">13주 모멘텀 1위</th><td>49.3%</td><td>0.98</td><td>-44.9%</td><td>1041.9bp</td></tr><tr><th scope="row">동일가중</th><td>39.6%</td><td>1.28</td><td>-23.7%</td><td>1078.5bp</td></tr><tr><th scope="row">SPO+ 선형</th><td>26.1%</td><td>0.69</td><td>-38.8%</td><td>1073.1bp</td></tr><tr><th scope="row">Ridge PTO</th><td>19.4%</td><td>0.59</td><td>-49.2%</td><td>1083.0bp</td></tr><tr><th scope="row">일반화 DFL (도전자)</th><td>18.8%</td><td>0.58</td><td>-49.2%</td><td>1084.9bp</td></tr></tbody>
+        </table></div>
+        <p class="table-note">주간 open-to-open raw-price 수익률, 편도 10bp 거래비용. 배당·분할이 완결된 total return이 아닙니다.</p>
+      </div>
+      <div class="comparison-grid">
+        <article class="metric-card"><span>SPO+ - 가장 강한 기준</span><strong>-64.4bp</strong><small>95% CI [-349.3, 136.9]</small></article>
+        <article class="metric-card"><span>Ridge PTO 연환산 순수익</span><strong>19.4%</strong><small>동일 feature·OOS·비용 계약</small></article>
+        <article class="metric-card"><span>일반화 DFL 연환산 순수익</span><strong>18.8%</strong><small>도전자, 자동 승격 불가</small></article>
+      </div>
+    </section>
+
+    <section id="evidence" class="section" aria-labelledby="evidence-title">
+      <div class="section-heading"><p class="eyebrow">Paper Analysis → Advancement</p><h2 id="evidence-title">복제에서 멈추지 않은 검증</h2></div>
+      <div class="evidence-grid">
+        <article class="evidence-card"><span class="step">01</span><h3>Canonical 수학</h3><p>Def. 3의 factor 2, shifted oracle, subgradient, exact dual certificate를 독립 회귀로 고정했습니다.</p></article>
+        <article class="evidence-card"><span class="step">02</span><h3>논문 재현 harness</h3><p>5x5 shortest-path synthetic DGP에서 SPO+와 정규화된 least squares를 strict LP certificate로 비교합니다.</p></article>
+        <article class="evidence-card"><span class="step">03</span><h3>KRX bridge</h3><p>실제 24자산·217 feature panel에서 data, oracle, capacity를 분리하는 48-cell 계약과 resumable private runner를 만들었습니다.</p></article>
+        <article class="evidence-card"><span class="step">04</span><h3>반증도 공개</h3><p>bounded core에서 regret gain은 -87.9bp, 95% CI [-248.7, 53.4]bp, p=0.276로 우월성을 지지하지 않았습니다.</p></article>
+      </div>
+    </section>
+
+    <section id="surfaces" class="section" aria-labelledby="surfaces-title">
+      <div class="section-heading"><p class="eyebrow">Reviewed Outputs</p><h2 id="surfaces-title">검증된 결과물</h2></div>
+      <div class="surface-grid">
+        <a class="surface-card featured" href="research/"><span>Interactive dashboard</span><h3>모델 비교 대시보드</h3><p>성과, equity curve, 거래비용 민감도, paired CI와 최신 weights 집계.</p><strong>대시보드 열기 →</strong></a>
+        <a class="surface-card" href="report/"><span>Technical report</span><h3>기술 보고서</h3><p>방법론, PDF 감사, 완료 게이트, provider/recovery 근거를 한 문서에 정리.</p><strong>보고서 열기 →</strong></a>
+        <a class="surface-card" href="sensitivity/universe/"><span>Universe sensitivity</span><h3>생존편향 축소 universe</h3><p>strict PIT로 가장하지 않는 historical cross-section replay.</p><strong>결과 열기 →</strong></a>
+        <a class="surface-card" href="sensitivity/cash/"><span>Cash sensitivity</span><h3>분배금 민감도</h3><p>현금분배가 완결된 구간만 사용하며 share-ratio·total-return 승격은 하지 않음.</p><strong>결과 열기 →</strong></a>
+        <a class="surface-card" href="sensitivity/fred/"><span>Macro sensitivity</span><h3>FRED current-vintage</h3><p>현재 vintage를 별도 non-PIT 민감도로 분리해 primary와 혼합하지 않음.</p><strong>결과 열기 →</strong></a>
+      </div>
+    </section>
+
+    <section id="limits" class="section limits-section" aria-labelledby="limits-title">
+      <div class="section-heading"><p class="eyebrow">Research Boundary</p><h2 id="limits-title">확인된 것과 아직 아닌 것</h2></div>
+      <div class="limits-grid">
+        <article><strong>확인</strong><p>동일 OOS·비용·feature 계약의 모델 비교, canonical SPO+ certificate, PDF 수식·성과표 감사.</p></article>
+        <article><strong>미확인</strong><p>SPO+의 통계적 우월성, 26주 forward shadow, ETF 전구간 total return, 2018년 이후 strict historical PIT.</p></article>
+        <article><strong>공개 경계</strong><p>검토된 모델 수준 파생치만 공개합니다. 원시 KRX 응답, 자격증명, DB, 학습행렬, 개별 ETF PnL은 포함하지 않습니다.</p></article>
+      </div>
+      <details class="operations"><summary>데이터·운영 상세</summary><div><p>연구 단계: 방법론 효과 V2 · release 79c2984d5cca5863b57ce0f8d24739f1.</p><p>Forward-PIT 원장은 앞으로 수집되는 verified snapshot만 축적하며 primary 선택과 분리되어 있습니다. 과거 strict PIT나 total return을 소급 합성하지 않습니다.</p><p>본 페이지는 개인 연구이며 투자·세무·법률 또는 매매 조언이 아닙니다.</p></div></details>
+    </section>
+  </main>
+  <footer><a href="#top">맨 위로</a><span>SPO Korea · derived-only research publication</span></footer>
+</body>
+</html>
