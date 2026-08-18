@@ -8,8 +8,8 @@
     },
     {
       "path": "404.html",
-      "sha256": "b4e4855687152b69af0c899b283f9ed3ac7d7b78efc794c326106b7cda385aa1",
-      "size": 10926
+      "sha256": "9189c1e9219d43f14293e96a824b1423aa10a2ffbf116d4f7b9f4d3a60e74ead",
+      "size": 12286
     },
     {
       "path": "assets/app.js",
@@ -18,18 +18,18 @@
     },
     {
       "path": "assets/styles.css",
-      "sha256": "76cb0a49412fae1d8f6e1f1d74b14cf3551cbe369d2252b8fb41d8a41278de33",
-      "size": 10155
+      "sha256": "440c759d75203080e274f9f2fb0053e96c5727e229a13669a5913f58048288b0",
+      "size": 11752
     },
     {
       "path": "index.html",
-      "sha256": "b4e4855687152b69af0c899b283f9ed3ac7d7b78efc794c326106b7cda385aa1",
-      "size": 10926
+      "sha256": "9189c1e9219d43f14293e96a824b1423aa10a2ffbf116d4f7b9f4d3a60e74ead",
+      "size": 12286
     },
     {
       "path": "report/content.html",
-      "sha256": "693447400f8626edf7cd9525a3b244095e04f1cedb2737507bf627de0ab1914e",
-      "size": 532093
+      "sha256": "585b44cbd14b4a3aa1d720eb618440deffcec883cdd896223d932920ef5fa0e1",
+      "size": 533975
     },
     {
       "path": "report/index.html",
@@ -38,8 +38,8 @@
     },
     {
       "path": "research/content.html",
-      "sha256": "2225233d44de8e20bc1eaa8297d4a68228ddf8ebce0fe436b7210f934b7eb054",
-      "size": 551960
+      "sha256": "6ddc14bbfea93fcbf1ca7527a786b5950855f502056d0628ae10927fde679bc0",
+      "size": 548819
     },
     {
       "path": "research/index.html",
@@ -48,8 +48,8 @@
     },
     {
       "path": "sensitivity/cash/content.html",
-      "sha256": "db4cc94103f52c9fc3dfe936d46c8cba9de9da173ac505d673cae04a3a715432",
-      "size": 547451
+      "sha256": "41362d100e3b7764c88e98151fc7e09978745d2a12ce37266fb5edf77795460a",
+      "size": 543504
     },
     {
       "path": "sensitivity/cash/index.html",
@@ -58,8 +58,8 @@
     },
     {
       "path": "sensitivity/fred/content.html",
-      "sha256": "e02aca3541500e5c4717c4706e474facf54515a6571ab39975366abef038dd88",
-      "size": 553905
+      "sha256": "c126234c6c8953f9e1d36b2d8496199592457afdd3ab221d76cb689621fa6f7d",
+      "size": 551450
     },
     {
       "path": "sensitivity/fred/index.html",
@@ -68,8 +68,8 @@
     },
     {
       "path": "sensitivity/universe/content.html",
-      "sha256": "83d1a8887f4d98620deac3842b8a52f21bcc05ef981591237c9052d8d4d6b68e",
-      "size": 554229
+      "sha256": "aa7ca475230ee3518fb81754717771db014b76663214eaf9be47a61bf5e75203",
+      "size": 548431
     },
     {
       "path": "sensitivity/universe/index.html",
@@ -78,8 +78,8 @@
     }
   ],
   "public_url": "https://sonchanggi.github.io/SPO/",
-  "release_content_sha256": "49d854e68b7b615a69e22b0739d9f28653c2ba1d93632bab9165037da57c6dd8",
-  "release_id": "79c2984d5cca5863b57ce0f8d24739f1",
+  "release_content_sha256": "715479a498364ee1aa787bb235231e829de946d31663cd77088961deaac4e39d",
+  "release_id": "65d020ba81915cc6bd51a81537083d53",
   "schema_version": 1,
   "site_kind": "spo_korea_reviewed_derived_only_pages"
 }
