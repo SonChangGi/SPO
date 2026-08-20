@@ -55,22 +55,22 @@
       <div class="section-heading"><p class="eyebrow">Investment Architecture</p><h2 id="core-title">예측을 잘하는 모델보다, 더 나은 결정을 만드는 구조</h2></div>
       <div class="verdict-grid">
         <article class="verdict-card verdict-primary">
-          <span class="status-pill info">SPO+ Core</span>
-          <h3>의사결정 중심 OOS</h3>
-          <strong class="hero-number">26.1%</strong>
-          <p>59주 OOS 연환산 순수익. 예측 오차가 아니라 최종 선택의 regret로 학습합니다.</p>
+          <span class="status-pill info">Paper-aligned SPO+</span>
+          <h3>Risk + cash OOS 누적</h3>
+          <strong class="hero-number">-33.3%</strong>
+          <p>59주 OOS에서 원문의 hard variance budget과 잔여 cash를 적용한 SPO+ 누적 순수익입니다.</p>
         </article>
         <article class="verdict-card">
           <span class="status-pill neutral">Decision Lift</span>
-          <h3>SPO+ - Ridge PTO</h3>
-          <strong class="hero-number">+10.0bp</strong>
-          <p>같은 feature·비용벡터·simplex를 쓰는 서로 다른 estimator의 주간 순수익 차이입니다.</p>
+          <h3>SPO+ - matched LS</h3>
+          <strong class="hero-number">-145.3bp</strong>
+          <p>같은 feature·비용벡터·risk budget·cash·비용을 공유하는 두 learner의 주간 순수익 차이입니다.</p>
         </article>
         <article class="verdict-card">
           <span class="status-pill neutral">Decision Geometry</span>
-          <h3>완전투자 simplex</h3>
-          <strong class="hero-number">24 → 1</strong>
-          <p>매주 24개 업종 ETF의 비용을 비교해 한 개의 명시적 목표 자산을 선택합니다.</p>
+          <h3>Hard risk + residual cash</h3>
+          <strong class="hero-number">Σ · γ · cash</strong>
+          <p><code>w′Σw ≤ γ</code>, <code>1′w ≤ 1</code>, <code>w ≥ 0</code>. 위험자산에 쓰지 않은 비중은 cash로 남깁니다.</p>
         </article>
       </div>
       <p class="answer-note">핵심은 “수익률을 예측한 뒤 투자한다”가 아니라, <strong>투자 결정에서 발생할 비용을 학습 목표로 삼고 동일한 실행 계약으로 검증하는 것</strong>입니다.</p>
@@ -81,21 +81,26 @@
       <ol class="decision-grid">
         <li><span class="step">01</span><strong>시장 상태</strong><p>KRX 업종 ETF 24개의 가격·유동성·NAV 정보를 주간 시점에 고정합니다.</p></li>
         <li><span class="step">02</span><strong>Feature map</strong><p>자산별 모멘텀·변동성·낙폭·유동성을 217개 입력으로 구성합니다.</p></li>
-        <li><span class="step">03</span><strong>Cost vector</strong><p>다음 5 KRX 세션 수익률의 음수 <code>c = -r</code>를 투자 비용으로 학습합니다.</p></li>
-        <li><span class="step">04</span><strong>SPO+ optimization</strong><p>예측 비용이 실제 선택을 어떻게 바꾸는지 exact simplex oracle과 decision loss로 연결합니다.</p></li>
+        <li><span class="step">03</span><strong>Excess-return cost</strong><p>다음 5 KRX 세션의 위험자산 초과수익을 <code>c = -(r-r_cash·e)</code>로 바꿉니다. 현재 PIT cash series가 없어 <code>r_cash=0</code>입니다.</p></li>
+        <li><span class="step">04</span><strong>Canonical SPO+</strong><p>실제 비용 oracle <code>w*(c)</code>와 shifted oracle <code>w*(2ĉ-c)</code>를 같은 hard-risk·cash feasible set에서 인증합니다.</p></li>
         <li><span class="step">05</span><strong>실행·검증</strong><p>목표 비중, drift, one-way 10 bp 비용을 적용하고 purged OOS에서 비교합니다.</p></li>
       </ol>
     </section>
 
     <section id="results" class="section" aria-labelledby="results-title">
-      <div class="section-heading"><p class="eyebrow">Comparable OOS</p><h2 id="results-title">모든 모델을 같은 59주 위에서 비교</h2></div>
+      <div class="section-heading"><p class="eyebrow">Comparable OOS</p><h2 id="results-title">Paper geometry와 기존 운용 비교군을 분리해 검증</h2></div>
+      <div class="comparison-grid">
+        <article class="metric-card"><span>Paper-aligned SPO+ 누적</span><strong>-33.3%</strong><small>O11 · hard risk + cash</small></article>
+        <article class="metric-card"><span>Matched LS 누적</span><strong>+45.1%</strong><small>동일 O11 geometry</small></article>
+        <article class="metric-card"><span>Regret gain, LS−SPO+</span><strong>-142.9bp</strong><small>95% CI [-280.2, -38.8]bp · p=0.025</small></article>
+      </div>
       <div class="table-card">
         <div class="table-scroll"><table>
-          <caption>동일 OOS 구간 모델 비교</caption>
+          <caption>기존 no-cash simplex 운용 비교군</caption>
           <thead><tr><th scope="col">모델</th><th scope="col">연환산 순수익</th><th scope="col">Sharpe</th><th scope="col">최대낙폭</th><th scope="col">평균 regret</th></tr></thead>
           <tbody><tr><th scope="row">과거 평균수익 1위</th><td>75.3%</td><td>1.29</td><td>-38.9%</td><td>1014.4bp</td></tr><tr><th scope="row">13주 모멘텀 1위</th><td>49.3%</td><td>0.98</td><td>-44.9%</td><td>1041.9bp</td></tr><tr><th scope="row">동일가중</th><td>39.6%</td><td>1.28</td><td>-23.7%</td><td>1078.5bp</td></tr><tr><th scope="row">SPO+ 선형</th><td>26.1%</td><td>0.69</td><td>-38.8%</td><td>1073.1bp</td></tr><tr><th scope="row">Ridge PTO</th><td>19.4%</td><td>0.59</td><td>-49.2%</td><td>1083.0bp</td></tr><tr><th scope="row">일반화 DFL (도전자)</th><td>18.8%</td><td>0.58</td><td>-49.2%</td><td>1084.9bp</td></tr></tbody>
         </table></div>
-        <p class="table-note">모든 모델은 같은 주간 표본·목표 비중·one-way 10 bp 실행비용으로 계산합니다.</p>
+        <p class="table-note">이 표는 O11 paper geometry 결과가 아니라, 동일 시점의 기존 fully-invested simplex 비교군입니다.</p>
       </div>
       <div class="comparison-grid">
         <article class="metric-card"><span>SPO+ - 가장 강한 기준</span><strong>-64.4bp</strong><small>95% CI [-349.3, 136.9]</small></article>
@@ -109,7 +114,7 @@
       <div class="evidence-grid">
         <article class="evidence-card"><span class="step">01</span><h3>Canonical loss</h3><p>Definition 3의 factor 2, shifted oracle, subgradient를 수치 회귀로 고정했습니다.</p></article>
         <article class="evidence-card"><span class="step">02</span><h3>Certified solver</h3><p>모든 SPO+ fit은 primal·dual gap과 KKT 조건을 통과해야만 결과에 포함됩니다.</p></article>
-        <article class="evidence-card"><span class="step">03</span><h3>Matched comparison</h3><p>SPO+와 Ridge PTO는 같은 panel·feature·simplex·OOS·비용을 공유합니다.</p></article>
+        <article class="evidence-card"><span class="step">03</span><h3>Matched comparison</h3><p>SPO+와 LS는 서로 다른 estimator objective를 쓰되 같은 panel·feature·covariance·risk budget·cash·OOS·비용을 공유합니다.</p></article>
         <article class="evidence-card"><span class="step">04</span><h3>Bridge experiment</h3><p>data, oracle, model capacity의 효과를 분리하는 48-cell 실험을 재개 가능한 private runner로 설계했습니다.</p></article>
       </div>
     </section>
@@ -128,9 +133,9 @@
     <section id="details" class="section details-section" aria-labelledby="details-title">
       <div class="section-heading compact-heading"><p class="eyebrow">Details</p><h2 id="details-title">연구 계약과 해석 범위</h2></div>
       <details class="operations"><summary>데이터·통계·운영 상세 보기</summary><div class="detail-grid">
-        <section><h3>성과 해석</h3><p>SPO+의 Ridge 대비 주간 순수익 차이는 +10.0bp, 95% CI [-187.1, 206.2]입니다. 현재 구간에서 CI는 0을 포함하며, forward 확정 표본은 0/26주입니다.</p></section>
+        <section><h3>성과 해석</h3><p>Paper geometry의 SPO+−LS 주간 순수익 차이는 -145.3bp이고 regret gain은 -142.9bp, 95% CI [-280.2, -38.8]bp입니다. forward 확정 표본은 0/26주입니다.</p></section>
         <section><h3>데이터 기준</h3><p>Primary는 주간 open-to-open raw-price 기반 고정 panel입니다. 분배금·share-ratio가 완결된 total return과 2018년 이후 strict historical PIT는 별도 승격 조건으로 유지합니다.</p></section>
-        <section><h3>논문과의 관계</h3><p>원문의 canonical SPO+ loss는 보존합니다. PDF의 synthetic normalized loss, hard-risk·cash oracle, 직접 policy layer는 현재 KRX primary와 분리해 재현·원인분해합니다. bounded bridge regret gain은 -87.9bp, 95% CI [-248.7, 53.4]bp, p=0.276입니다.</p></section>
+        <section><h3>논문과의 관계</h3><p>원문의 canonical SPO+ loss와 portfolio feasible set을 KRX에 적용했습니다. <code>γ=2.25·Var(e/d)</code>, 월별 PIT Ledoit–Wolf covariance, 잔여 cash를 사용합니다. 전체 48-cell 원인분해와 한국 PIT risk-free series는 접힌 상세 범위로 남깁니다.</p></section>
         <section><h3>공개·운영 경계</h3><p>연구 단계 방법론 효과 V2 · release 65d020ba81915cc6bd51a81537083d53. 검토된 파생 결과만 공개하며 원시 응답, 자격증명, DB, 학습행렬과 개별 ETF PnL은 포함하지 않습니다. 본 페이지는 개인 연구이며 매매 조언이 아닙니다.</p></section>
       </div></details>
     </section>
