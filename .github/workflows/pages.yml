@@ -25,13 +25,13 @@ jobs:
       - name: Check out reviewed public bundle
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       - name: Verify and materialize exact allowlist
-        run: python scripts/verify-site.py . --materialize dist
+        run: python scripts/verify-web-deployment.py public-web
       - name: Configure GitHub Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
       - name: Upload exact static bundle
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
-          path: dist
+          path: public-web
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
@@ -41,13 +41,16 @@ jobs:
         run: |
           for attempt in {1..12}; do
             if python - "$PAGE_URL" <<'PY'
-          import hashlib, json, os, sys, urllib.request
+          import gzip, hashlib, json, os, sys, urllib.request
           base = sys.argv[1].rstrip('/') + '/'
-          manifest = json.load(open('site-manifest.json', encoding='utf-8'))
-          served = [row for row in manifest['files'] if not row['path'].startswith('.')]
-          for row in served + [{'path':'site-manifest.json','sha256':hashlib.sha256(open('site-manifest.json','rb').read()).hexdigest()}]:
-              with urllib.request.urlopen(base + row['path'] + '?run=' + os.environ['GITHUB_RUN_ID'], timeout=30) as response:
-                  assert hashlib.sha256(response.read()).hexdigest() == row['sha256']
+          manifest = json.load(open('public-web/manifest.json', encoding='utf-8'))
+          served = [{'path': path, 'sha256': digest} for path, digest in manifest['files'].items()]
+          for row in served + [{'path':'manifest.json','sha256':hashlib.sha256(open('public-web/manifest.json','rb').read()).hexdigest()}]:
+              request = urllib.request.Request(base + row['path'] + '?run=' + os.environ['GITHUB_RUN_ID'], headers={'Accept-Encoding':'gzip'})
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  body = response.read()
+                  if response.headers.get('Content-Encoding') == 'gzip': body = gzip.decompress(body)
+                  assert hashlib.sha256(body).hexdigest() == row['sha256']
           PY
             then exit 0; fi
             test "$attempt" -lt 12 || exit 1
